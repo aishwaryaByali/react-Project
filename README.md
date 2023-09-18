@@ -27,3 +27,28 @@
 - Https
 - Tree shaking - remove unused code
 - Different dev and prod bundles
+
+#namaste food
+
+/\*\*
+
+- Header
+- - Logo
+- - Nav Items
+- Body
+- - Search
+- - RestaurantContainer
+- - RestaurantCard
+- Footer
+- - Copyright
+- - links
+- - Address
+- - Contact
+    \*/
+
+# React hooks
+
+- [normal JS utility functions] present in React. we need to import
+- import as named import
+- useState() - superpowerful state variable in react
+- useEffect() -

@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import RestoCard from "./RestoCard";
 import Shimmer from "./Shimmer";
+import _ from "lodash";
 
 const Body = () => {
   const [restaurantData, setRestaurantData] = useState([]); // it is bascially array destructuring
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredResto, setFilterRestro] = useState([]);
   useEffect(() => {
     fetchData();
   }, []);
@@ -17,27 +20,52 @@ const Body = () => {
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
     setRestaurantData(restoList);
+    setFilterRestro(restoList);
   };
+  // Conditional Rendering
+  // if (restaurantData.length === 0) {
+  //   return <Shimmer />;
+  // }
 
-  if (restaurantData.length === 0) {
-    return <Shimmer />;
-  }
-  return (
+  return _.isEmpty(restaurantData) ? (
+    <Shimmer />
+  ) : (
     <div className="body">
-      {/* <div className="search">Search</div> */}
-      <div>
+      <div className="filter">
+        <div className="search">
+          <input
+            className="search-box"
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+            }}
+          />
+          <button
+            className="search-btn"
+            onClick={() => {
+              const searchedResto = restaurantData.filter((i) =>
+                _.lowerCase(i.info.name).includes(_.lowerCase(searchValue))
+              );
+              setFilterRestro(searchedResto);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
-            const list = data.filter((i) => i.data.avgRating > 4.1);
-            setRestaurantData(list);
+            const filterData = restaurantData.filter(
+              (i) => i.info.avgRating > 4
+            );
+            setFilterRestro(filterData);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
       <div className="restro-Container">
-        {restaurantData.map((a, index) => {
+        {filteredResto.map((a) => {
           return <RestoCard resData={a.info} key={a.info.id} />;
         })}
       </div>

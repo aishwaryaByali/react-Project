@@ -25,6 +25,7 @@
 .restro-Container {
   display: flex;
   flex-wrap: wrap;
+  scroll-behavior: auto;
 }
 .resto-card {
   margin: 5px;
@@ -53,4 +54,11 @@
   width: 200px;
   height: 400px;
   background-color: #f0f0f0;
+}
+.login-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+.filter {
+  display: flex;
 }

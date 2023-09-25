@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import RestoCard from "./RestoCard";
 import Shimmer from "./Shimmer";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restaurantData, setRestaurantData] = useState([]); // it is bascially array destructuring
@@ -66,7 +67,11 @@ const Body = () => {
       </div>
       <div className="restro-Container">
         {filteredResto.map((a) => {
-          return <RestoCard resData={a.info} key={a.info.id} />;
+          return (
+            <Link key={a.info.id} to={"/restaurants/" + a.info.id}>
+              <RestoCard resData={a.info} />
+            </Link>
+          );
         })}
       </div>
     </div>

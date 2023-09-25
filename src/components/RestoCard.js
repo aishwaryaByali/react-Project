@@ -2,7 +2,7 @@ import { CDN_URL } from "../utils/common";
 
 export const RestoCard = (props) => {
   const { resData } = props;
-  console.log("resData", resData);
+
   return (
     <div className="resto-card">
       <img

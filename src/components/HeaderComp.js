@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import * as common from "../utils/common";
 import { useState } from "react"; //named Import
-
+import useOnlineStatus from "../utils/useOnlineStatus";
 const HeaderComp = () => {
   const [loginVal, setLoginVal] = useState("Login");
+  const onlineStatus = useOnlineStatus();
   return (
     <div className="header">
       <div className="logo-container">
@@ -11,6 +12,7 @@ const HeaderComp = () => {
       </div>
       <div className="nav-items">
         <ul>
+          <li>{onlineStatus ? "online" : "offline"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>

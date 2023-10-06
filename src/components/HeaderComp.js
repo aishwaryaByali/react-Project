@@ -12,7 +12,7 @@ const HeaderComp = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li>{onlineStatus ? "online" : "offline"}</li>
+          <li>OnLineStatus: {onlineStatus ? "✅" : "😥"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>

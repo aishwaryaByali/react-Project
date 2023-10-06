@@ -3,32 +3,22 @@ import RestoCard from "./RestoCard";
 import Shimmer from "./Shimmer";
 import _ from "lodash";
 import { Link } from "react-router-dom";
+import useApi from "../utils/useApi";
+import { RES_DATA } from "../utils/common";
 
 const Body = () => {
-  const [restaurantData, setRestaurantData] = useState([]); // it is bascially array destructuring
+  const apiRestaurantData = useApi(RES_DATA);
   const [searchValue, setSearchValue] = useState("");
-  const [filteredResto, setFilterRestro] = useState([]);
+  const [filteredResto, setFilterRestro] = useState(apiRestaurantData); // it is bascially array destructuring
   useEffect(() => {
-    fetchData();
-  }, []);
+    setFilterRestro(apiRestaurantData);
+  }, [apiRestaurantData]);
 
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.521266&lng=73.98257339999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
-    const restoList =
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants;
-    setRestaurantData(restoList);
-    setFilterRestro(restoList);
-  };
   // Conditional Rendering
   // if (restaurantData.length === 0) {
   //   return <Shimmer />;
   // }
-
-  return _.isEmpty(restaurantData) ? (
+  return _.isEmpty(apiRestaurantData) ? (
     <Shimmer />
   ) : (
     <div className="body">
@@ -44,7 +34,7 @@ const Body = () => {
           <button
             className="search-btn"
             onClick={() => {
-              const searchedResto = restaurantData.filter((i) =>
+              const searchedResto = apiRestaurantData.filter((i) =>
                 _.lowerCase(i.info.name).includes(_.lowerCase(searchValue))
               );
               setFilterRestro(searchedResto);
@@ -56,7 +46,7 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            const filterData = restaurantData.filter(
+            const filterData = apiRestaurantData.filter(
               (i) => i.info.avgRating > 4
             );
             setFilterRestro(filterData);
@@ -66,13 +56,14 @@ const Body = () => {
         </button>
       </div>
       <div className="restro-Container">
-        {filteredResto.map((a) => {
-          return (
-            <Link key={a.info.id} to={"/restaurants/" + a.info.id}>
-              <RestoCard resData={a.info} />
-            </Link>
-          );
-        })}
+        {filteredResto &&
+          filteredResto.map((a) => {
+            return (
+              <Link key={a.info.id} to={"/restaurants/" + a.info.id}>
+                <RestoCard resData={a.info} />
+              </Link>
+            );
+          })}
       </div>
     </div>
   );

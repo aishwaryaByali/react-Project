@@ -23,6 +23,9 @@ const HeaderComp = () => {
             <Link to="/contactus">Contact Us</Link>
           </li>
           <li>Cart</li>
+          <li>
+            <Link to="/instaMart">Insta Mart</Link>
+          </li>
           <button
             className="login-btn"
             onClick={() => {

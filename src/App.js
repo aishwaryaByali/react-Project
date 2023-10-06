@@ -4,7 +4,7 @@
 //   "Hello World from React!"
 // );
 // console.log(reactheading);
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import HeaderComp from "./components/HeaderComp";
 import Body from "./components/Body";
@@ -13,6 +13,8 @@ import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurantDetails from "./components/RestaurantDetails";
+
+const InstaSwiggyMart = lazy(() => import("./components/InstaSwiggyMart"));
 
 const AppLayout = () => {
   return (
@@ -33,6 +35,14 @@ const appRouter = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/contactus", element: <ContactUs /> },
       { path: "/restaurants/:resId", element: <RestaurantDetails /> },
+      {
+        path: "/instaMart",
+        element: (
+          <Suspense fallback={<h1>Lazy Loading!!!</h1>}>
+            <InstaSwiggyMart />
+          </Suspense>
+        ),
+      },
     ],
   },
 ]);

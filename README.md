@@ -52,3 +52,16 @@
 - import as named import
 - useState() - superpowerful state variable in react
 - useEffect() -
+
+# writing css
+
+css library and framework
+
+- sass-
+- scss-
+- styled component-https://styled-components.com/
+- material-ui
+- bootstrap-html, css and js library
+- chakra-ui
+- ant design
+- tailwind css

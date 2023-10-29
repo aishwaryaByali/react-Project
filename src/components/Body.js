@@ -22,17 +22,17 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex m-1 p-1">
+        <div className="">
           <input
-            className="search-box"
+            className="border-black rounded-lg border-solid border-2 mx-1"
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);
             }}
           />
           <button
-            className="search-btn"
+            className="rounded-lg bg-slate-400 px-3 py-1 m-2"
             onClick={() => {
               const searchedResto = apiRestaurantData.filter((i) =>
                 _.lowerCase(i.info.name).includes(_.lowerCase(searchValue))
@@ -43,19 +43,21 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filterData = apiRestaurantData.filter(
-              (i) => i.info.avgRating > 4
-            );
-            setFilterRestro(filterData);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+        <div>
+          <button
+            className="border border-solid rounded-lg m-2 py-1 bg-gray-200"
+            onClick={() => {
+              const filterData = apiRestaurantData.filter(
+                (i) => i.info.avgRating > 4
+              );
+              setFilterRestro(filterData);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="restro-Container">
+      <div className="flex flex-wrap">
         {filteredResto &&
           filteredResto.map((a) => {
             return (

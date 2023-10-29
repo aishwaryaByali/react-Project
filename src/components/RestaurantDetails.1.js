@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { CDN_URL } from "../utils/common";
 
-const RestaurantDetails = () => {
+export const RestaurantDetails = () => {
   const { resId } = useParams();
   const menuData = useRestaurantMenu(resId);
   if (menuData === null) return <Shimmer />;
@@ -21,19 +20,16 @@ const RestaurantDetails = () => {
       ?.card;
   console.log("itemCards", menuData);
   return (
-    <div className="m-4 p-4 border shadow-lg flex justify-between w-[75%]">
+    <div className="m-4 p-4 border shadow-lg flex justify-between w-[50%]">
       <div>
-        <h1 className="font-bold text-lg p-1">{name}</h1>
-        <h3 className="m-2">
-          <span className="font-bold text-sm">costForTwo Rs:</span>{" "}
-          {costForTwoMessage}
-        </h3>
-        <h4 className="m-2">{cuisines.join(", ")}</h4>
-        <h3 className="font-bold text-sm">⭐{avgRatingString} stars</h3>
-        <h3 className="font-bold my-2">Menu</h3>
-        <ul className="p-2 mx-2">
+        <h1 className="font-bold">{name}</h1>
+        <h3>costForTwo Rs: {costForTwoMessage}</h3>
+        <h4>{cuisines.join(", ")}</h4>
+        <h3>{avgRatingString}stars</h3>
+        <h3>Menu</h3>
+        <ul>
           {itemCards.map((item) => (
-            <li key={item.card.info.id} className="list-disc">
+            <li key={item.card.info.id}>
               {item.card.info.name}: - Rs{item.card.info.price / 100}
             </li>
           ))}
@@ -49,4 +45,3 @@ const RestaurantDetails = () => {
     </div>
   );
 };
-export default RestaurantDetails;

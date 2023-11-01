@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import RestoCard from "./RestoCard";
+import RestoCard, { offerTagRestoCard } from "./RestoCard";
 import Shimmer from "./Shimmer";
 import _ from "lodash";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const Body = () => {
   useEffect(() => {
     setFilterRestro(apiRestaurantData);
   }, [apiRestaurantData]);
-
+  const OffersRestoCard = offerTagRestoCard(RestoCard);
   // Conditional Rendering
   // if (restaurantData.length === 0) {
   //   return <Shimmer />;
@@ -32,7 +32,7 @@ const Body = () => {
             }}
           />
           <button
-            className="rounded-lg bg-slate-400 px-3 py-1 m-2"
+            className="rounded-lg bg-teal-400 px-3 py-1 m-2"
             onClick={() => {
               const searchedResto = apiRestaurantData.filter((i) =>
                 _.lowerCase(i.info.name).includes(_.lowerCase(searchValue))
@@ -45,10 +45,10 @@ const Body = () => {
         </div>
         <div>
           <button
-            className="border border-solid rounded-lg m-2 py-1 bg-gray-200"
+            className="border border-solid rounded-lg m-2 py-1 px-2 bg-gray-200"
             onClick={() => {
               const filterData = apiRestaurantData.filter(
-                (i) => i.info.avgRating > 4
+                (i) => i.info.avgRating > 4.0
               );
               setFilterRestro(filterData);
             }}
@@ -62,7 +62,14 @@ const Body = () => {
           filteredResto.map((a) => {
             return (
               <Link key={a.info.id} to={"/restaurants/" + a.info.id}>
-                <RestoCard resData={a.info} />
+                {/* <RestoCard resData={a.info} /> */}
+                {a.info.aggregatedDiscountInfoV3 &&
+                a?.info?.aggregatedDiscountInfoV3.discountTag ===
+                  "FLAT DEAL" ? (
+                  <OffersRestoCard resData={a.info} />
+                ) : (
+                  <RestoCard resData={a.info} />
+                )}
               </Link>
             );
           })}

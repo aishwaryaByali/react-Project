@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import * as common from "../utils/common";
-import { useState } from "react"; //named Import
+import { useContext, useState } from "react"; //named Import
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 const HeaderComp = () => {
   const [loginVal, setLoginVal] = useState("Login");
   const onlineStatus = useOnlineStatus();
+  const { loggedInUser } = useContext(UserContext);
   return (
     <div className="flex justify-between bg-pink-50 border-solid m-1 p-1 shadow-md">
       <div className="w-36 m-2 p-4">
@@ -36,6 +38,7 @@ const HeaderComp = () => {
           >
             {loginVal}
           </button>
+          <li>{loggedInUser}</li>
         </ul>
       </div>
     </div>

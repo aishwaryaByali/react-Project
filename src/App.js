@@ -4,22 +4,31 @@
 //   "Hello World from React!"
 // );
 // console.log(reactheading);
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import HeaderComp from "./components/HeaderComp";
 import Body from "./components/Body";
 import About from "./components/About";
 import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
+// import UserContext from "./utils/UserContext";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurantDetails from "./components/RestaurantDetails";
-
 const InstaSwiggyMart = lazy(() => import("./components/InstaSwiggyMart"));
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+  useEffect(() => {
+    const data = {
+      name: "Aishwarya Byali",
+    };
+    setUserName(data.name);
+  }, []);
   return (
     <div id="app">
+      {/* <UserContext.Provider value={{ loggedInUser: userName }}> */}
       <HeaderComp />
+      {/* </UserContext.Provider> */}
       <Outlet />
     </div>
   );

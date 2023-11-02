@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import ItemList from "./ItemList";
 
 const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
   //   const [openItem, setOpenItem] = useState(false);
   const handleClick = (e) => {
-    console.log("e", e);
     setShowIndex();
   };
   //  If the component has a state variable then it is a uncontrolled component,
